@@ -6,15 +6,14 @@ import java.util.Objects;
 
 public class FreshJuice implements Product{
 
-  private int id = 3;
+  private String id = "juice";
   private ProductType type = ProductType.BEVERAGE;
+
   private int quantity;
   private double price;
   List<Extra> extras = new ArrayList<>(); // Assumption -> Juice can be ordered with any extra
 
-  public FreshJuice(){
-
-  }
+  public FreshJuice(){}
 
   public FreshJuice(int quantity){
     this.quantity = quantity;
@@ -32,7 +31,6 @@ public class FreshJuice implements Product{
     this.extras = extras;
   }
 
-
   public ProductType getType() {
     return type;
   }
@@ -45,11 +43,11 @@ public class FreshJuice implements Product{
     this.quantity = quantity;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 

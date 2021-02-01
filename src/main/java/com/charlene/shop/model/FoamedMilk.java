@@ -5,8 +5,9 @@ import java.util.Objects;
 
 public class FoamedMilk implements Extra{
 
-  private int id = 5;
+  private String id = "foamedmilk";
   private ProductType type = ProductType.EXTRA;
+
   private double price;
 
   public ProductType getType() {
@@ -15,30 +16,12 @@ public class FoamedMilk implements Extra{
 
   public FoamedMilk(){}
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    FoamedMilk that = (FoamedMilk) o;
-    return id == that.id &&
-        type == that.type;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, type);
   }
 
   public FoamedMilk(double price){
@@ -62,5 +45,21 @@ public class FoamedMilk implements Extra{
     return null;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FoamedMilk that = (FoamedMilk) o;
+    return id == that.id &&
+        type == that.type;
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, type);
+  }
 }

@@ -6,8 +6,9 @@ import java.util.Objects;
 
 public class Coffee implements Product{
 
-  private int id = 1;
+  private String id = "coffee";
   private ProductType type = ProductType.BEVERAGE;
+
   private Size size;
   private int quantity;
   private double price;
@@ -45,29 +46,11 @@ public class Coffee implements Product{
     this.size = size;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Coffee coffee = (Coffee) o;
-    return id == coffee.id &&
-        type == coffee.type;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, type);
-  }
-
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -87,5 +70,22 @@ public class Coffee implements Product{
     this.price = price;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Coffee coffee = (Coffee) o;
+    return size == coffee.size &&
+        type == coffee.type;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, size);
+  }
 
 }

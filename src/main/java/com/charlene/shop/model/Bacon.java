@@ -7,12 +7,8 @@ import java.util.Objects;
 //Assumption -> size is not considered for bacon
 public class Bacon implements Product{
 
-  private int id = 2;
+  private String id = "bacon";
   private ProductType type = ProductType.SNACK;
-
-  public ProductType getType() {
-    return type;
-  }
 
   int quantity;
   double price;
@@ -20,11 +16,11 @@ public class Bacon implements Product{
 
   public Bacon(){}
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -56,6 +52,14 @@ public class Bacon implements Product{
     return price;
   }
 
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public ProductType getType() {
+    return type;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -73,10 +77,4 @@ public class Bacon implements Product{
   public int hashCode() {
     return Objects.hash(id, type);
   }
-
-  public void setPrice(double price) {
-    this.price = price;
-  }
-
-
 }

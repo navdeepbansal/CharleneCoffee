@@ -4,7 +4,7 @@ public class Customer {
 
   private int phoneNumber;
   private String customerName;
-  private int stampCard;
+  private int stampCard = 0;
 
   public Customer(int phoneNumber, String customerName){
     this.phoneNumber = phoneNumber;

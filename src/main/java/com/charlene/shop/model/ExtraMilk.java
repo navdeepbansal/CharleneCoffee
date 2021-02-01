@@ -5,19 +5,17 @@ import java.util.Objects;
 
 public class ExtraMilk implements Extra {
 
-  private int id = 4;
+  private String id = "extramilk";
   private ProductType type = ProductType.EXTRA;
-  private double price;
 
-  public ProductType getType() {
-    return type;
-  }
+  private double price;
 
   public ExtraMilk(){}
 
   public ExtraMilk(double price){
     this.price = price;
   }
+
   public double getPrice() {
     return price;
   }
@@ -26,11 +24,11 @@ public class ExtraMilk implements Extra {
     this.price = price;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -42,6 +40,10 @@ public class ExtraMilk implements Extra {
   @Override
   public List<Extra> getExtras() {
     return null;
+  }
+
+  public ProductType getType() {
+    return type;
   }
 
   @Override
