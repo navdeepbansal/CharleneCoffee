@@ -17,12 +17,41 @@ If a customer orders a beverage and a snack, one of the extra's is free
 Application - A maven application is created for the same. As per specifications only Java SE libraries are used, so only Junit library is used in pom.
 
 Sample Output:
-Use Case: When customer orders a small coffee with foamed milk. Below is the output
-OrderId: 1971114838
+Use Case: If a customer orders a beverage and a snack, one of the extra's is free. Below is the output
+OrderId: 308748521
 Customer Phone: 123
 COFFEE------2.5
 FOAMEDMILK------0.5
-TOTAL PRICE --------- 3.0
+BACON------4.5
+DISCOUNTED FOAMEDMILK------0.5
+TOTAL PRICE --------- 7.0
+
+Use Case: Offer a customer stamp card, where every 5th beverage is for free.
+OrderId: 2007451863
+Customer Phone: 456
+COFFEE------2.5
+TOTAL PRICE --------- 2.5
+
+OrderId: 409602229
+Customer Phone: 456
+JUICE------3.95
+TOTAL PRICE --------- 3.95
+
+OrderId: 1833963699
+Customer Phone: 456
+JUICE------3.95
+TOTAL PRICE --------- 3.95
+
+OrderId: 475752747
+Customer Phone: 456
+BACON------4.5
+TOTAL PRICE --------- 4.5
+
+OrderId: 1979386944
+Customer Phone: 456
+COFFEE------2.5
+DISCOUNTED 5th BEVERAGE COFFEE------2.5
+TOTAL PRICE --------- 0.0
 
 How to run this application ?
 

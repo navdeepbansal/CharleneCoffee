@@ -27,14 +27,15 @@ public class OrderProcessor {
     initializeMenu();
   }
 
+  /**
+   * This method is used to initialize menu
+   * products and their prices are initialized in this method
+   */
   private void initializeMenu(){
     initializeCoffee();
     intializeJuice();
     intializeBacon();
-
-    menu.getItems().put(new ExtraMilk(), 0.30);
-    menu.getItems().put(new FoamedMilk(), 0.50);
-    menu.getItems().put(new RoastCoffee(), 0.90);
+    initializeExtras();
   }
 
   /**
@@ -133,7 +134,7 @@ public class OrderProcessor {
         // to apply discount only for one of the extras
         if (extraToDiscount.isPresent() && applyDiscount) {
           Double priceToDiscount = menu.getItems().get(extraToDiscount.get());
-          invoice.append("DISCOUNTED " + extraToDiscount.get().getId() +"------"+ priceToDiscount + "\n");
+          invoice.append("DISCOUNTED " + extraToDiscount.get().getId().toUpperCase() +"------"+ priceToDiscount + "\n");
           totalPrice = totalPrice - priceToDiscount;
           applyDiscount = false;
         }
@@ -145,7 +146,7 @@ public class OrderProcessor {
       Optional<Product> beveragetoDiscount = order.getProducts().stream().filter(product -> product.getType().equals(ProductType.BEVERAGE)).findFirst();
       if(beveragetoDiscount.isPresent()){
         Double beveragePriceToDiscount = menu.getItems().get(beverageProduct.get());
-        invoice.append("DISCOUNTED 5th Beverage" + beverageProduct.get().getId().toUpperCase() +"------"+ beveragePriceToDiscount + "\n");
+        invoice.append("DISCOUNTED 5th BEVERAGE " + beverageProduct.get().getId().toUpperCase() +"------"+ beveragePriceToDiscount + "\n");
         totalPrice = totalPrice - beveragePriceToDiscount;
       }
     }
@@ -177,6 +178,12 @@ public class OrderProcessor {
   private void intializeJuice(){
     FreshJuice smallJuice = new FreshJuice(3.95);
     menu.getItems().put(smallJuice, smallJuice.getPrice());
+  }
+
+  private void initializeExtras(){
+    menu.getItems().put(new ExtraMilk(), 0.30);
+    menu.getItems().put(new FoamedMilk(), 0.50);
+    menu.getItems().put(new RoastCoffee(), 0.90);
   }
 
   private void intializeBacon() {
