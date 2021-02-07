@@ -68,13 +68,12 @@ public class OrderProcessor {
 
     receipt.setId(new Random().nextInt() & Integer.MAX_VALUE);
     receipt.setOrderDetails(order);
-    order.getCustomer().setStampCard(order.getCustomer().getStampCard() + 1);
 
     invoice.append("OrderId: " + order.getOrderId() + "\n");
     invoice.append("Customer Phone: " + order.getCustomer().getPhoneNumber() + "\n");
 
     totalPrice = calculatePriceForOrder(order, totalPrice, invoice);
-    totalPrice = checkForDiscount(order, invoice, totalPrice);
+    totalPrice = checkForExtraDiscount(order, invoice, totalPrice);
 
     invoice.append("TOTAL PRICE --------- " + totalPrice + "\n");
     System.out.println(invoice);
@@ -89,16 +88,30 @@ public class OrderProcessor {
    * @return
    *
    * calculates price for an order placed
+   * Use Case - offer a customer stamp card per beverage, where every 5th beverage is for free
    */
   private Double calculatePriceForOrder(Order order, Double totalPrice, StringBuilder invoice){
 
+    int beverageCount = 0;
     for (Product product : order.getProducts()) {
       Double productPrice = menu.getItems().get(product);
-      invoice.append(product.getId().toUpperCase() + "------" + productPrice + "\n");
 
       if (Objects.nonNull(productPrice)) {
+        invoice.append(product.getId().toUpperCase() + "------" + productPrice + " and quantity is " + product.getQuantity()+ "\n");
         totalPrice = totalPrice + calculatePriceOfProduct(product.getQuantity(), productPrice);
       }
+
+      if(product.getType().equals(ProductType.BEVERAGE)){
+        beverageCount = beverageCount + product.getQuantity();
+        order.getCustomer().setStampCard(order.getCustomer().getStampCard() + beverageCount);
+
+        if(order.getCustomer().getStampCard()>0 && order.getCustomer().getStampCard()%5==0){
+          Double beveragePriceToDiscount = menu.getItems().get(product);
+          invoice.append("DISCOUNTED 5th BEVERAGE " + product.getId().toUpperCase() + "------" + beveragePriceToDiscount + "\n" );
+          totalPrice =  totalPrice - beveragePriceToDiscount;
+        }
+      }
+
       List<Extra> extras = product.getExtras();
       if (Objects.nonNull(extras) && extras.size() > 0) {
         for (Extra sideOrder : extras) {
@@ -119,9 +132,8 @@ public class OrderProcessor {
    *
    * check for discount
    * Use Case - If a customer orders a beverage and a snack, one of the extra's is free
-   * Use Case - offer a customer stamp card, where every 5th beverage is for free
    */
-  private double checkForDiscount(Order order, StringBuilder invoice, Double totalPrice){
+  private double checkForExtraDiscount(Order order, StringBuilder invoice, Double totalPrice){
     // Use Case -> If a customer orders a beverage and a snack, one of the extra's is free.
     Optional<Product> beverageProduct = order.getProducts().stream().filter(product -> product.getType().equals(ProductType.BEVERAGE)).findAny();
     Optional<Product> snackProduct = order.getProducts().stream().filter(product -> product.getType().equals(ProductType.SNACK)).findAny();
@@ -138,16 +150,6 @@ public class OrderProcessor {
           totalPrice = totalPrice - priceToDiscount;
           applyDiscount = false;
         }
-      }
-    }
-
-    // Use Case - She decides to offer a customer stamp card, where every 5th beverage is for free
-    if(order.getCustomer().getStampCard()%5 == 0){
-      Optional<Product> beveragetoDiscount = order.getProducts().stream().filter(product -> product.getType().equals(ProductType.BEVERAGE)).findFirst();
-      if(beveragetoDiscount.isPresent()){
-        Double beveragePriceToDiscount = menu.getItems().get(beverageProduct.get());
-        invoice.append("DISCOUNTED 5th BEVERAGE " + beverageProduct.get().getId().toUpperCase() +"------"+ beveragePriceToDiscount + "\n");
-        totalPrice = totalPrice - beveragePriceToDiscount;
       }
     }
     return totalPrice;

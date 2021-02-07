@@ -216,92 +216,77 @@ public class OrderProcessorTest {
 
   }
 
+  /**
+   * Use Case - Customer orders 5 beverages in a single order
+   * 1st order - 5 Beverages
+   */
   @Test
   public void fifthBeverageFreeForSameCustomerTest(){
-
     OrderProcessor orderProcessor = new OrderProcessor();
 
     Customer customer = new Customer(123, "Navdeep Bansal");
 
-    List<Product> orderedProducts1 = new ArrayList<Product>();
-    Coffee coffee = new Coffee(Size.SMALL,1);
-    orderedProducts1.add(coffee);
-    Order order1 = orderProcessor.placeOrder(customer, orderedProducts1);
-
-    List<Product> orderedProducts2 = new ArrayList<Product>();
-    FreshJuice juice = new FreshJuice(1);
-    orderedProducts2.add(juice);
-    Order order2 = orderProcessor.placeOrder(customer, orderedProducts2);
-
-    List<Product> orderedProducts3 = new ArrayList<Product>();
-    FreshJuice juice1 = new FreshJuice(1);
-    orderedProducts3.add(juice1);
-    Order order3 = orderProcessor.placeOrder(customer, orderedProducts3);
-
-    List<Product> orderedProducts4 = new ArrayList<Product>();
-    Bacon bacon = new Bacon(1);
-    orderedProducts4.add(bacon);
-    Order order4 = orderProcessor.placeOrder(customer, orderedProducts4);
-
-    List<Product> orderedProducts5 = new ArrayList<Product>();
-    Coffee coffee1 = new Coffee(Size.SMALL,1);
-    orderedProducts5.add(coffee1);
-    Order order5 = orderProcessor.placeOrder(customer, orderedProducts5);
-
-    Receipt receipt1 = orderProcessor.generateReceipt(order1);
-    Receipt receipt2 = orderProcessor.generateReceipt(order2);
-    Receipt receipt3 = orderProcessor.generateReceipt(order3);
-    Receipt receipt4 = orderProcessor.generateReceipt(order4);
-    Receipt receipt5 = orderProcessor.generateReceipt(order5);
-
-    Assert.assertEquals(0.00, receipt5.getPrice(), 0.00);
-
+    List<Product> orderedProducts = new ArrayList<>();
+    Coffee coffee = new Coffee(Size.SMALL, 5);
+    orderedProducts.add(coffee);
+    Order order = orderProcessor.placeOrder(customer, orderedProducts);
+    orderProcessor.generateReceipt(order);
   }
 
+  /**
+   * Use Case - Customer orders 5 beverages in 2 orders
+   * 1st order - 3 Beverages
+   * 2nd order - 2 Beverage
+   */
   @Test
-  public void onlyOneFifthBeverageFreeForSameCustomerTest(){
-
+  public void fifthBeverageFreeForSameCustomerTest1(){
     OrderProcessor orderProcessor = new OrderProcessor();
 
     Customer customer = new Customer(123, "Navdeep Bansal");
 
-    List<Product> orderedProducts1 = new ArrayList<Product>();
-    Coffee coffee = new Coffee(Size.SMALL,1);
-    orderedProducts1.add(coffee);
+    List<Product> orderedProducts = new ArrayList<>();
+    Coffee coffee = new Coffee(Size.SMALL, 3);
+    orderedProducts.add(coffee);
+    Order order = orderProcessor.placeOrder(customer, orderedProducts);
+
+    List<Product> orderedProducts1 = new ArrayList<>();
+    FreshJuice juice = new FreshJuice(2);
+    orderedProducts1.add(juice);
     Order order1 = orderProcessor.placeOrder(customer, orderedProducts1);
 
-    List<Product> orderedProducts2 = new ArrayList<Product>();
-    FreshJuice juice = new FreshJuice(1);
-    orderedProducts2.add(juice);
-    Order order2 = orderProcessor.placeOrder(customer, orderedProducts2);
-
-    List<Product> orderedProducts3 = new ArrayList<Product>();
-    FreshJuice juice1 = new FreshJuice(1);
-    orderedProducts3.add(juice1);
-    Order order3 = orderProcessor.placeOrder(customer, orderedProducts3);
-
-    List<Product> orderedProducts4 = new ArrayList<Product>();
-    Bacon bacon = new Bacon(1);
-    orderedProducts4.add(bacon);
-    Order order4 = orderProcessor.placeOrder(customer, orderedProducts4);
-
-    List<Product> orderedProducts5 = new ArrayList<Product>();
-    Coffee coffee1 = new Coffee(Size.SMALL,1);
-    orderedProducts5.add(coffee1);
-    FreshJuice juice2 = new FreshJuice(1);
-    orderedProducts5.add(juice2);
-    Order order5 = orderProcessor.placeOrder(customer, orderedProducts5);
-
-    Receipt receipt1 = orderProcessor.generateReceipt(order1);
-    Receipt receipt2 = orderProcessor.generateReceipt(order2);
-    Receipt receipt3 = orderProcessor.generateReceipt(order3);
-    Receipt receipt4 = orderProcessor.generateReceipt(order4);
-    Receipt receipt5 = orderProcessor.generateReceipt(order5);
-
-    Assert.assertEquals(3.95, receipt5.getPrice(), 0.00);
-
+    orderProcessor.generateReceipt(order);
+    orderProcessor.generateReceipt(order1);
   }
 
+  /**
+   * Use Case - Customer orders 5 beverages in 3 orders
+   * 1st order - 3 Beverages
+   * 2nd order - 1 Beverage
+   * 3rd order - 1 Beverage
+   */
+  @Test
+  public void fifthBeverageFreeForSameCustomerTest2(){
+    OrderProcessor orderProcessor = new OrderProcessor();
 
+    Customer customer = new Customer(123, "Navdeep Bansal");
 
+    List<Product> orderedProducts = new ArrayList<>();
+    Coffee coffee = new Coffee(Size.SMALL, 3);
+    orderedProducts.add(coffee);
+    Order order = orderProcessor.placeOrder(customer, orderedProducts);
+
+    List<Product> orderedProducts1 = new ArrayList<>();
+    FreshJuice juice = new FreshJuice(1);
+    orderedProducts1.add(juice);
+    Order order1 = orderProcessor.placeOrder(customer, orderedProducts1);
+
+    List<Product> orderedProducts2 = new ArrayList<>();
+    Coffee coffee1 = new Coffee(Size.LARGE, 1);
+    orderedProducts2.add(coffee1);
+    Order order2 = orderProcessor.placeOrder(customer, orderedProducts2);
+
+    orderProcessor.generateReceipt(order);
+    orderProcessor.generateReceipt(order1);
+    orderProcessor.generateReceipt(order2);
+  }
 }
