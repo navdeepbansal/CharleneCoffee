@@ -37,7 +37,14 @@ public class Application {
     Order order = orderProcessor.placeOrder(customer, orderedProducts);
     orderProcessor.generateReceipt(order);
 
-    // Use Case - Offer a customer stamp card, where every 5th beverage is for free
+    /*
+     Use Case - Offer a customer stamp card, where every 5th beverage is for free
+     1st Order - Small Coffee - Quantity 3, Price is 2.5*3 = 7.5
+     2nd Order - Juice with quantity 1 and Large Coffee with quantity 1
+                 In this case only price for juice is considered, as Large Coffee is 5th beverage, so it is discounted
+
+                 Price for order 2 is: 3.95
+     */
 
     System.out.println("---------------------------------------------------------------");
     Customer customer1 = new Customer(456, "Johny Bansal");
