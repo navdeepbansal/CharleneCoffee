@@ -64,7 +64,7 @@ public class OrderProcessor {
     StringBuilder invoice = new StringBuilder();
     Receipt receipt = new Receipt();
 
-    Double totalPrice = new Double(0); // to store the total price of order
+    Double totalPrice = Double.valueOf(0); // to store the total price of order
 
     receipt.setId(new Random().nextInt() & Integer.MAX_VALUE);
     receipt.setOrderDetails(order);
