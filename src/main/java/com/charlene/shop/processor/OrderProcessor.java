@@ -92,7 +92,6 @@ public class OrderProcessor {
    */
   private Double calculatePriceForOrder(Order order, Double totalPrice, StringBuilder invoice){
 
-    int beverageCount = 0;
     for (Product product : order.getProducts()) {
       Double productPrice = menu.getItems().get(product);
 
@@ -102,8 +101,7 @@ public class OrderProcessor {
       }
 
       if(product.getType().equals(ProductType.BEVERAGE)){
-        beverageCount = beverageCount + product.getQuantity();
-        order.getCustomer().setStampCard(order.getCustomer().getStampCard() + beverageCount);
+        order.getCustomer().setStampCard(order.getCustomer().getStampCard() + product.getQuantity());
 
         if(order.getCustomer().getStampCard()>0 && order.getCustomer().getStampCard()%5==0){
           Double beveragePriceToDiscount = menu.getItems().get(product);

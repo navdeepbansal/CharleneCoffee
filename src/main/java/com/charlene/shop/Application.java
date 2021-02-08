@@ -48,8 +48,10 @@ public class Application {
     Order order1 = orderProcessor.placeOrder(customer1, orderedProducts1);
 
     List<Product> orderedProducts2 = new ArrayList<Product>();
-    FreshJuice juice = new FreshJuice(2);
+    FreshJuice juice = new FreshJuice(1);
+    Coffee coffee2 = new Coffee(Size.LARGE,1);
     orderedProducts2.add(juice);
+    orderedProducts2.add(coffee2);
     Order order2 = orderProcessor.placeOrder(customer1, orderedProducts2);
 
     orderProcessor.generateReceipt(order1);
