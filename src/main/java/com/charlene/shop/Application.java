@@ -8,7 +8,6 @@ import com.charlene.shop.model.FoamedMilk;
 import com.charlene.shop.model.FreshJuice;
 import com.charlene.shop.model.Order;
 import com.charlene.shop.model.Product;
-import com.charlene.shop.model.Receipt;
 import com.charlene.shop.model.Size;
 import com.charlene.shop.processor.OrderProcessor;
 import java.util.ArrayList;
@@ -44,34 +43,17 @@ public class Application {
     Customer customer1 = new Customer(456, "Johny Bansal");
 
     List<Product> orderedProducts1 = new ArrayList<Product>();
-    Coffee coffee1 = new Coffee(Size.SMALL,1);
+    Coffee coffee1 = new Coffee(Size.SMALL,3);
     orderedProducts1.add(coffee1);
     Order order1 = orderProcessor.placeOrder(customer1, orderedProducts1);
 
     List<Product> orderedProducts2 = new ArrayList<Product>();
-    FreshJuice juice = new FreshJuice(1);
+    FreshJuice juice = new FreshJuice(2);
     orderedProducts2.add(juice);
     Order order2 = orderProcessor.placeOrder(customer1, orderedProducts2);
 
-    List<Product> orderedProducts3 = new ArrayList<Product>();
-    FreshJuice juice1 = new FreshJuice(1);
-    orderedProducts3.add(juice1);
-    Order order3 = orderProcessor.placeOrder(customer1, orderedProducts3);
-
-    List<Product> orderedProducts4 = new ArrayList<Product>();
-    Bacon bacon1 = new Bacon(1);
-    orderedProducts4.add(bacon1);
-    Order order4 = orderProcessor.placeOrder(customer1, orderedProducts4);
-
-    List<Product> orderedProducts5 = new ArrayList<Product>();
-    Coffee coffee2 = new Coffee(Size.SMALL,1);
-    orderedProducts5.add(coffee2);
-    Order order5 = orderProcessor.placeOrder(customer1, orderedProducts5); // price of this order should be 0.0, as this is 5th order and beverage is free on 5th order
-
     orderProcessor.generateReceipt(order1);
     orderProcessor.generateReceipt(order2);
-    orderProcessor.generateReceipt(order3);
-    orderProcessor.generateReceipt(order4);
-    orderProcessor.generateReceipt(order5);
+
   }
 }
